@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCD Calculator</title>
+
+    <style>
+        /* ----- PAGE STYLING ----- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e; /* Dark theme background */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* ----- CONTAINER STYLING ----- */
+        .container {
+            background-color: #2c2c2c; /* Dark gray box */
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        /* ----- INPUT STYLING ----- */
+        input {
+            padding: 10px;
+            width: 120px;
+            border: none;
+            border-radius: 6px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        /* ----- BUTTON STYLING ----- */
+        button {
+            padding: 10px 20px;
+            background-color: #00aaff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0088cc; /* Slightly darker on hover */
+        }
+
+        /* ----- OUTPUT BOX STYLING ----- */
+        #output {
+            margin-top: 15px;
+            text-align: left;
+            background: #111; /* Darker box for output */
+            padding: 10px;
+            border-radius: 6px;
+            white-space: pre-line; /* Preserve new lines */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main content container -->
+    <div class="container">
+        <h2>GCD Calculator</h2>
+        <p>Enter two numbers:</p>
+
+        <!-- Input fields for the two numbers -->
+        <input type="number" id="num1" placeholder="First number">
+        <input type="number" id="num2" placeholder="Second number"><br><br>
+
+        <!-- Button to start the calculation -->
+        <button onclick="calculateGCD()">Find GCD</button>
+
+        <!-- Area to display output -->
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Function to calculate GCD using the Euclidean Algorithm
+        function calculateGCD() {
+            // Get input values from user
+            let a = parseInt(document.getElementById('num1').value);
+            let b = parseInt(document.getElementById('num2').value);
+            let output = ''; // Variable to store the output text
+
+            // Check if user entered valid numbers
+            if (isNaN(a) || isNaN(b)) {
+                document.getElementById('output').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            // Keep copies of original numbers for final output
+            let x = a, y = b;
+
+            // Display entered numbers
+            output += `Enter two numbers: ${a} ${b}\n`;
+
+            // Loop until remainder (b) becomes zero
+            while (b !== 0) {
+                output += `GCD(${a},${b})\n`; // Show each step
+                let temp = b;   // Store b temporarily
+                b = a % b;      // Find remainder
+                a = temp;       // Update a with previous b
+            }
+
+            // Show the final step where b = 0
+            output += `GCD(${a},${b})\n`;
+
+            // Display the final GCD result
+            output += `Hence GCD(${x},${y}) = ${a}`;
+
+            // Display the output in the HTML div
+            document.getElementById('output').innerText = output;
+        }
+    </script>
+</body>
+</html>
